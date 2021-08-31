@@ -69,9 +69,7 @@ export default function Header() {
                 x
               </button>
             ) : (
-              <button onClick={toggleDrawer("left", true)}>
-                <FontAwesomeIcon icon="fa-bars" />
-              </button>
+              <button onClick={toggleDrawer("left", true)}>menu</button>
             )}
             <SwipeableDrawer
               anchor={"left"}
