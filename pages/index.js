@@ -1,65 +1,66 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import { useEffect, useState, useContext } from "react";
+import IsLoading from "../context/isLoading";
+
+import ManinLayout from "../layouts/mainLayout";
+import Banner from "../components/frontend/shared/banner";
+import Grid from "../components/frontend/home-grid/grid";
+
+import ItemOne from "../public/images/item-one.jpg";
+import ItemTwo from "../public/images/item-two.jpg";
+import ItemThree from "../public/images/item-three.jpg";
+import ItemFour from "../public/images/item-four.jpg";
 
 export default function Home() {
+  const [images, setImages] = useState([
+    { src: ItemOne },
+    { src: ItemTwo },
+    { src: ItemThree },
+
+    { src: ItemThree },
+    { src: ItemFour },
+    { src: ItemOne },
+
+    { src: ItemOne },
+    { src: ItemTwo },
+    { src: ItemThree },
+
+    { src: ItemThree },
+    { src: ItemFour },
+    { src: ItemOne },
+  ]);
+
+  const { setIsLoading } = useContext(IsLoading);
+
+  const handleLoading = () => {
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("load", handleLoading);
+
+    return () => window.removeEventListener("load", handleLoading);
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Khaled's Gallery</title>
         <link rel="icon" href="/favicon.ico" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+      <ManinLayout>
+        {/* <div className="test-contact"></div> */}
+        <main style={{ marginTop: "100vh" }}>
+          <Banner />
+          <Grid images={images} shadow={true} paddingTop={true} />
+        </main>
+      </ManinLayout>
     </div>
-  )
+  );
 }
