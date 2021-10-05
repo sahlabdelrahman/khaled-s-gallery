@@ -1,5 +1,6 @@
-import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
+import "../styles/globals.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 import { useState } from "react";
 
@@ -15,7 +16,7 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <IsLoading.Provider value={{ isLoading, setIsLoading }}>
-      <FirebaseContext.Provider value={{ db }}>
+      <FirebaseContext.Provider value={{ db, auth }}>
         <Opens.Provider value={{ openContact, setOpenContact }}>
           <Component {...pageProps} />
         </Opens.Provider>

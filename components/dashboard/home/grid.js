@@ -1,7 +1,7 @@
 import Masonry from "react-masonry-css";
 import GridItem from "./grid-item";
 
-export default function Grid({ images, shadow, paddingTop }) {
+export default function Grid({ images }) {
   const breakpointColumnsObj = {
     default: 3,
     1100: 2,
@@ -10,11 +10,7 @@ export default function Grid({ images, shadow, paddingTop }) {
   };
 
   return (
-    <div
-      className={`${shadow ? "shadow-grid" : ""} ${
-        paddingTop ? "pt-24" : ""
-      }  relative`}
-    >
+    <div className={`relative py-8`}>
       <div className="test-grid z-0"></div>
       <div className="container z-10">
         <Masonry
@@ -23,7 +19,13 @@ export default function Grid({ images, shadow, paddingTop }) {
           columnClassName="my-masonry-grid_column"
         >
           {images?.map((item, i) => (
-            <GridItem src={item.src} key={i} />
+            <GridItem
+              id={item.id}
+              title={item.title}
+              description={item.description}
+              src={item.imageUrl}
+              key={i}
+            />
           ))}
         </Masonry>
       </div>

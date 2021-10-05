@@ -1,20 +1,13 @@
-import { useContext, useState, Fragment } from "react";
-
-import IsLoading from "../../../context/isLoading";
-import Opens from "../../../context/opens";
+import { useState, Fragment } from "react";
 
 import Link from "next/link";
 
 import Nav from "./nav";
 
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import SideNav from "./side-nav";
+import SideNav from "../../frontend/header/side-nav";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-export default function Header() {
-  const { isLoading } = useContext(IsLoading);
-
+export default function DashboardHeader() {
   const [state, setState] = useState({
     left: false,
   });
@@ -31,26 +24,14 @@ export default function Header() {
     setState({ ...state, [anchor]: open });
   };
 
-  const { openContact, setOpenContact } = useContext(Opens);
-
-  const handleClose = () => {
-    setOpenContact(false);
-  };
-
   return (
     <header
-      className={`${
-        !isLoading ? "bg-white" : "bg-black-black"
-      } transition-all duration-2000 ease-in-out flex items-center fixed left-0 -top-0 w-full z-20  h-32 font-open-sans`}
+      className={`bg-white transition-all duration-2000 ease-in-out flex items-center fixed left-0 -top-0 w-full z-20  h-32 font-open-sans`}
     >
       <div className="container  flex justify-between items-center ">
         <h1 className="uppercase text-base font-semibold">
           <Link href="/">
-            <a
-              className={`${
-                !isLoading ? "text-black-black" : "text-white"
-              } transition-all duration-2000 ease-in-out`}
-            >
+            <a className={` transition-all duration-2000 ease-in-out`}>
               ahmed khaled
               <span className="text-pink-primary text-2xl font-semibold">
                 .
@@ -60,17 +41,7 @@ export default function Header() {
         </h1>
         <div className="lg:hidden">
           <Fragment>
-            {openContact ? (
-              <button
-                className="transition-all duration-2000 ml-4 px-5 py-2 cursor-pointer bg-pink-primary shadow-button text-bold text-white"
-                onClick={handleClose}
-                aria-label="close"
-              >
-                x
-              </button>
-            ) : (
-              <button onClick={toggleDrawer("left", true)}>menu</button>
-            )}
+            <button onClick={toggleDrawer("left", true)}>menu</button>
             <SwipeableDrawer
               anchor={"left"}
               open={state["left"]}

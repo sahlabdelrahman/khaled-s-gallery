@@ -42,6 +42,7 @@ module.exports = {
         // "screen-xl-r": "1200px"
       },
       minHeight: {
+        72: "18rem",
         92: "23rem",
         123: "30.75rem",
         87: "21.75rem",

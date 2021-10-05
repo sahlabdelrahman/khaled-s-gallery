@@ -21,25 +21,23 @@ export default function GridItem({ src }) {
   };
 
   return (
-    <div className="relative shadow-button ">
-      {/* <Image
+    <div className=" h-72 relative shadow-button ">
+      <Image
         src={src}
-        width="100"
-        height="100"
+        layout="fill"
         objectFit="cover"
         objectPosition="center"
         placeholder="blur"
         loading="lazy"
         className="w-full"
-      /> */}
-      <img src={src} className="w-full" />
-      <div className="absolute flex flex-col left-0 top-0 justify-end px-6 pb-5 w-full h-full bg-gray-item-opacity transition duration-500 ease-in-out opacity-0 hover:opacity-100">
+      />
+      <div className="absolute flex flex-col justify-end pl-6 pb-5 w-full h-full bg-gray-item-opacity transition duration-500 ease-in-out opacity-0 hover:opacity-100">
         <p className="text-white bg-pink-primary py-1 px-4 mb-3 rounded-xl w-20 text-xs	font-extrabold capitalize flex justify-center items-center">
           featured
         </p>
         <h4
           onClick={() => handleClickOpen(src)}
-          className="font-open-sans text-xl lg:text-2xl	font-bold	leading-9 text-white cursor-pointer"
+          className="font-open-sans text-2xl	font-bold	leading-9 text-white cursor-pointer"
         >
           Palestine Revolution Just an Example Text
         </h4>

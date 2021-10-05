@@ -9,14 +9,26 @@
   height: 384px;
 }
 
-.left-open {
-  left: 0 !important;
-  transform: translateX(0) !important;
+@media (min-width: 1024px) {
+  .left-open {
+    left: 0 !important;
+    transform: translateX(0) !important;
+  }
+
+  .right-open {
+    right: 0 !important;
+    transform: translateX(0) !important;
+  }
 }
 
-.right-open {
-  right: 0 !important;
-  transform: translateX(0) !important;
+@media (max-width: 1023px) {
+  .top-open {
+    top: -188px !important;
+  }
+
+  .padding-bottom {
+    padding-bottom: 188px;
+  }
 }
 
 .test-grid {
@@ -76,4 +88,165 @@
 .my-masonry-grid_column > div {
   /* change div to reference your elements you put in <Masonry> */
   margin-bottom: 30px;
+}
+
+/* Vidoes page */
+
+body.vp-center {
+  display: block !important;
+}
+
+iframe html body.vp-center div.player {
+  max-width: 100% !important;
+}
+
+/* Ckeditor */
+
+.ck-content > blockquote,
+.ck-content > dl,
+.ck-content > dd,
+.ck-content > h1,
+.ck-content > h2,
+.ck-content > h3,
+.ck-content > h4,
+.ck-content > h5,
+.ck-content > h6,
+.ck-content > hr,
+.ck-content > figure,
+.ck-content > p,
+.ck-content > pre {
+  margin: revert;
+}
+
+.ck-content > ol,
+.ck-content > ul {
+  list-style: revert;
+  margin: revert;
+  padding: revert;
+}
+
+.ck-content > table {
+  border-collapse: revert;
+}
+
+.ck-content > h1,
+.ck-content > h2,
+.ck-content > h3,
+.ck-content > h4,
+.ck-content > h5,
+.ck-content > h6 {
+  font-size: revert;
+  font-weight: revert;
+}
+
+/* article-details */
+
+.article-details blockquote,
+.article-details dl,
+.article-details dd,
+.article-details h1,
+.article-details h2,
+.article-details h3,
+.article-details h4,
+.article-details h5,
+.article-details h6,
+.article-details hr,
+.article-details figure,
+.article-details p,
+.article-details pre {
+  margin: revert;
+}
+
+.article-details ol,
+.article-details ul {
+  list-style: revert;
+  margin: revert;
+  padding: revert;
+}
+
+.article-details table {
+  border-collapse: revert;
+}
+
+.article-details h1,
+.article-details h2,
+.article-details h3,
+.article-details h4,
+.article-details h5,
+.article-details h6 {
+  font-size: revert;
+  font-weight: revert;
+}
+
+@media (max-width: 425px) {
+  body .ck.ck-toolbar-dropdown .ck.ck-toolbar .ck.ck-toolbar__items {
+    flex-wrap: wrap;
+    min-width: 70vw;
+  }
+}
+
+/* draft-js */
+
+.RichEditor-root {
+  background: #fff;
+  border: 1px solid #ddd;
+  font-family: "Georgia", serif;
+  font-size: 14px;
+  padding: 15px;
+}
+
+.RichEditor-editor {
+  border-top: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+  margin: 0 -15px -15px;
+  padding: 15px;
+}
+
+.RichEditor-editor .public-DraftEditor-content {
+  min-height: 100px;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+  display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+  border-left: 5px solid #eee;
+  color: #666;
+  font-family: "Hoefler Text", "Georgia", serif;
+  font-style: italic;
+  margin: 16px 0;
+  padding: 10px 20px;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: "Inconsolata", "Menlo", "Consolas", monospace;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.RichEditor-controls {
+  font-family: "Helvetica", sans-serif;
+  font-size: 14px;
+  margin-bottom: 5px;
+  user-select: none;
+}
+
+.RichEditor-styleButton {
+  color: #999;
+  cursor: pointer;
+  margin-right: 16px;
+  padding: 2px 0;
+  display: inline-block;
+}
+
+.RichEditor-activeButton {
+  color: #5890ff;
 }

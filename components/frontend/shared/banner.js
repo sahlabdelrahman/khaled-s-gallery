@@ -2,7 +2,7 @@ import { useContext } from "react";
 import IsLoading from "../../../context/isLoading";
 
 // import mainKhaled from "../../public/images/test/one.png";
-import mainKhaled from "../../../public/images/main-khaled.jpg";
+import MainKhaled from "../../../public/images/banner/main-khaled.png";
 import Image from "next/image";
 import Twitter from "../../../public/icons/twitter.svg";
 import Behance from "../../../public/icons/behane.svg";
@@ -15,7 +15,7 @@ export default function Banner({ children }) {
     <div
       className={`${
         !isLoading ? "bg-white" : "bg-black-black"
-      } transition-all duration-1000 ease-in-out z-0 h-screen fixed left-0 -top-0 w-full  flex  flex-col items-center `}
+      } transition-all duration-2000 ease-in-out z-0 h-screen fixed left-0 -top-0 w-full  flex  flex-col items-center `}
     >
       {/* <Image
         src={mainKhaled}
@@ -24,12 +24,15 @@ export default function Banner({ children }) {
         height={625}
         className="h-screen"
       /> */}
+
       <img
-        src={mainKhaled}
+        src={MainKhaled}
         width={700}
         // h-140
         alt="Picture of the author"
-        className="flex justify-center items-center absolute mt-25.25 object-contain h-full "
+        className={`
+          
+        flex justify-center items-center absolute mt-25.25 object-contain h-full transition-all duration-2000 ease-in-out`}
       />
 
       <div
@@ -40,7 +43,7 @@ export default function Banner({ children }) {
           <h1
             className={`${
               !isLoading ? "text-gray-banner" : "text-white"
-            } transition-all duration-500 ease-in-out text-small-banner xl:text-banner font-medium  leading-snug font-roboto tracking-tighter`}
+            } transition-all duration-2000 ease-in-out text-small-banner xl:text-banner font-medium  leading-snug font-roboto tracking-tighter`}
           >
             Ahm<spna className="opacity-0">ed</spna>{" "}
             <span className="opacity-0">kh</span>aled
@@ -52,7 +55,7 @@ export default function Banner({ children }) {
         style={{ top: "35%" }}
         className={`${
           !isLoading ? "opacity-0" : "opacity-50"
-        } text-white font-open-sans text-lg font-normal relative transition-all duration-500 ease-in-out`}
+        } text-white font-open-sans text-lg font-normal relative transition-all duration-2000 ease-in-out`}
       >
         I’m Ahmed Kahled that specializes in User Experience Design dummy text
       </p>
@@ -60,7 +63,7 @@ export default function Banner({ children }) {
         <ul
           className={`${
             !isLoading ? "opacity-100" : "opacity-0"
-          } flex transition-all duration-500 ease-in-out`}
+          } flex transition-all duration-2000 ease-in-out`}
         >
           <li className="mx-3 text-pink-primary">
             <a href="https://twitter.com/ah_khaled32">

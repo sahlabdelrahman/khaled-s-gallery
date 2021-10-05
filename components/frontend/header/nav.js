@@ -7,8 +7,6 @@ import IsLoading from "../../../context/isLoading";
 
 import NavLink from "./navLink";
 
-import ContactList from "../contact/index";
-
 export default function Nav() {
   const { isLoading } = useContext(IsLoading);
 

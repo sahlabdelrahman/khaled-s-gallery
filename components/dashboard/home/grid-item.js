@@ -8,12 +8,9 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
-import Open from "../../../public/icons/menu.svg";
-import Edit from "../../../public/icons/edit.svg";
-import Delete from "../../../public/icons/delete.svg";
-
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import Slide from "@material-ui/core/Slide";
 
@@ -25,50 +22,9 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-export default function GridItem({
-  id,
-  title,
-  description,
-  videoId,
-  openCard,
-  items,
-  handleItems,
-  dashboard,
-}) {
-  const [open, setOpen] = useState(false);
-
-  const [isEdited, setIsEdited] = useState(false);
-
-  const handleClickIsEdited = () => {
-    setIsEdited(true);
-  };
-
-  const handleCloseIsEdited = (event, reason) => {
-    setIsEdited(false);
-  };
-
-  const handelOpen = (id) => {
-    const newItems = items?.map((item) => {
-      if (item.id === id) {
-        if (item["openCard"] == true) {
-          item["openCard"] = false;
-          return { ...item };
-        } else {
-          item["openCard"] = true;
-          return { ...item };
-        }
-      } else {
-        if (item["openCard"] == false) {
-          return { ...item };
-        }
-        item["openCard"] = false;
-        return { ...item };
-      }
-    });
-    handleItems([...newItems]);
-  };
-
+export default function GridItem({ src, id, title, description }) {
   const { db } = useContext(FirebaseContext);
+
   const {
     value: modTitle,
     resetValue: resetModTitle,
@@ -83,11 +39,14 @@ export default function GridItem({
     setValue: setModDescription,
   } = useInput("");
 
-  const handleDeleteVideo = async () => {
-    await db.collection("videos").doc(id).delete();
+  const [isEdited, setIsEdited] = useState(false);
 
-    handleOpenVideoIsDeleted();
-    handleCloseOpenDelete();
+  const handleClickIsEdited = () => {
+    setIsEdited(true);
+  };
+
+  const handleCloseIsEdited = (event, reason) => {
+    setIsEdited(false);
   };
 
   const handleEdit = () => {
@@ -96,13 +55,29 @@ export default function GridItem({
   };
 
   const handleUpdate = async () => {
-    await db.collection("videos").doc(id).update({
-      title: modTitle,
-      description: modDescription,
-    });
-    handleClickIsEdited();
-    handleClose();
+    try {
+      await db.collection("images").doc(id).update({
+        title: modTitle,
+        description: modDescription,
+      });
+      await handleClose();
+      handleClickIsEdited();
+    } catch (error) {
+      alert("Error", error);
+    }
   };
+
+  const handleDeletePhoto = async () => {
+    try {
+      await db.collection("images").doc(id).delete();
+      await handleCloseOpenDelete();
+      handleOpenPhotoIsDeleted();
+    } catch (error) {
+      alert("Error", error);
+    }
+  };
+
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -125,84 +100,49 @@ export default function GridItem({
     setOpenDelete(false);
   };
 
-  const [videoIsDeleted, setVideoIsDeleted] = useState(false);
+  const [photoIsDeleted, setPhotoIsDeleted] = useState(false);
 
-  const handleOpenVideoIsDeleted = () => {
-    setVideoIsDeleted(true);
+  const handleOpenPhotoIsDeleted = () => {
+    setPhotoIsDeleted(true);
   };
 
-  const handleCloseVideoIsDeleted = (event, reason) => {
+  const handleClosePhotoIsDeleted = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setVideoIsDeleted(false);
+    setPhotoIsDeleted(false);
   };
 
   return (
-    <div
-      className={`video flex items-center relative ${
-        openCard ? "padding-bottom" : ""
-      } `}
-    >
-      <div
-        className={`w-3/5 min-h-72 h-72  absolute z-10 transition-all duration-500 ease-in-out left-1/2 transform -translate-x-1/2 ${
-          openCard ? "left-open" : ""
-        } `}
-      >
-        <div className="flex items-center h-full">
-          <div className="flex flex-col w-1/12">
-            <button
-              onClick={() => handelOpen(id)}
-              className="bg-pink-primary w-10 h-10 flex justify-center items-center mb-4"
-            >
-              <img src={Open} alt="open video" />
-            </button>
-            {dashboard && (
-              <>
-                <button
-                  onClick={handleClickOpen}
-                  className="bg-pink-primary w-10 h-10 flex justify-center items-center mb-4"
-                >
-                  <img src={Edit} alt="edit video" />
-                </button>
-                <button
-                  onClick={handleOpenOpenDelete}
-                  className="bg-pink-primary w-10 h-10 flex justify-center items-center"
-                >
-                  <img src={Delete} alt="delete video" />
-                </button>
-              </>
-            )}
-            {/* <button className="bg-pink-primary w-10 h-10 flex justify-center items-center">
-              <img src={Send} alt="send video" />
-            </button> */}
-          </div>
-          <div className="w-11/12 h-full">
-            <iframe
-              src={videoId || ""}
-              title={title}
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full min-h-72"
-            />
+    <>
+      {src ? (
+        <div className="relative shadow-button ">
+          <img src={src} className="w-full" />
+          <div className="absolute flex flex-col left-0 top-0 justify-end px-6 pb-5 w-full h-full bg-gray-item-opacity transition duration-500 ease-in-out opacity-0 hover:opacity-100">
+            <div className="flex">
+              <button
+                onClick={handleClickOpen}
+                className="text-white bg-pink-primary py-1 px-4 mb-3 mr-3 rounded-xl w-20 text-xs	font-extrabold capitalize flex justify-center items-center"
+              >
+                edit
+              </button>
+              <button
+                onClick={handleOpenOpenDelete}
+                className="text-white bg-pink-primary py-1 px-4 mb-3 rounded-xl w-20 text-xs	font-extrabold capitalize flex justify-center items-center"
+              >
+                delete
+              </button>
+            </div>
+            <h4 className="font-open-sans text-xl lg:text-2xl	font-bold	leading-9 text-white cursor-pointer">
+              {title}
+            </h4>
           </div>
         </div>
-      </div>
-      <div
-        className={`w-2/5 h-64 bg-gray-video px-20 py-9  font-open-sans absolute  z-0 transition-all duration-500 ease-in-out right-1/2  transform translate-x-1/2 ${
-          openCard ? "right-open " : ""
-        } `}
-      >
-        <h4 className=" text-lg lg:text-2xl font-bold mb-4">{title}</h4>
-        <p className=" h-28 overflow-auto text-gray-dark-gray text-sm lg:text-base font-normal mb-5">
-          {description}
-        </p>
-        <a href="#" className="uppercase text-sm text-pink-primary font-normal">
-          read more
-        </a>
-      </div>
+      ) : (
+        <Skeleton sx={{ height: 300 }} animation="wave" variant="rectangular" />
+      )}
+
       <Dialog
         open={open}
         onClose={handleClose}
@@ -263,7 +203,7 @@ export default function GridItem({
         <DialogTitle id="alert-dialog-slide-title">Delete</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Are you sure you want to delete the video?
+            Are you sure you want to delete the photo?
           </DialogContentText>
         </DialogContent>
         <div className="flex items-center justify-end pt-2 pr-6 pb-2">
@@ -275,19 +215,19 @@ export default function GridItem({
           </button>
           <button
             className=" capitalize  mb-4 px-5 py-2 cursor-pointer bg-red-500 shadow-button text-white"
-            onClick={handleDeleteVideo}
+            onClick={handleDeletePhoto}
           >
             delete
           </button>
         </div>
       </Dialog>
       <Snackbar
-        open={videoIsDeleted}
+        open={photoIsDeleted}
         autoHideDuration={3000}
-        onClose={handleCloseVideoIsDeleted}
+        onClose={handleClosePhotoIsDeleted}
       >
-        <Alert severity="warning" onClose={handleCloseVideoIsDeleted}>
-          Video is deleted!
+        <Alert severity="warning" onClose={handleClosePhotoIsDeleted}>
+          Photo is deleted!
         </Alert>
       </Snackbar>
       <Snackbar
@@ -296,11 +236,9 @@ export default function GridItem({
         onClose={handleCloseIsEdited}
       >
         <Alert onClose={handleCloseIsEdited} severity="info">
-          Video is edited!
+          Details is edited!
         </Alert>
       </Snackbar>
-    </div>
+    </>
   );
 }
-
-// absolute ${openCard ? "relative" : ""}

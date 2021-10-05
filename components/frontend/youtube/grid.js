@@ -1,8 +1,29 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
+import FirebaseContext from "../../../context/firebase";
 
 import GridItem from "./grid-item";
 
-export default function Grid({}) {
+export default function Grid({ dashboard }) {
+  const { db } = useContext(FirebaseContext);
+
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const unmount = db
+      .collection("videos")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) => {
+        setVideos(
+          snapshot?.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+            openCard: false,
+          }))
+        );
+      });
+
+    return unmount;
+  }, []);
   const [items, setItems] = useState([
     {
       id: "1",
@@ -43,16 +64,17 @@ export default function Grid({}) {
 
   return (
     <div className="container mx-auto max-w-screen-lg grid grid-cols-1 auto-rows-auto gap-y-20">
-      {items?.map(({ id, title, description, src, openCard }) => (
+      {videos?.map(({ id, title, description, videoId, openCard }) => (
         <GridItem
           key={id}
           id={id}
-          items={items}
-          handleItems={setItems}
+          items={videos}
+          handleItems={setVideos}
           title={title}
           description={description}
-          src={src}
+          videoId={videoId}
           openCard={openCard}
+          dashboard={dashboard}
         />
       ))}
     </div>

@@ -13,7 +13,9 @@ import ItemFour from "../public/images/item-four.jpg";
 
 export default function Home() {
   const [images, setImages] = useState([
-    { src: ItemOne },
+    {
+      src: "https://lh3.googleusercontent.com/7mHEWSgvSMI2ZNe90XFRroOha14DfcujZawfkG6E1j_rd-jNvzC80WCnDNQ6csCWG3OlJzfDoF2XsH9pNfmWSp6ftnva16_66Hheph2PPj1dnpmTULFwunGel1ytDYHN8qGwXMRZvQ=w2400",
+    },
     { src: ItemTwo },
     { src: ItemThree },
 

@@ -1,11 +1,26 @@
 import Head from "next/head";
 
+import { useEffect, useContext } from "react";
+import IsLoading from "../../context/isLoading";
+
 import ManinLayout from "../../layouts/mainLayout";
 
 import Title from "../../components/frontend/shared/title";
 import Grid from "../../components/frontend/youtube/grid";
 
 export default function Youtube() {
+  const { setIsLoading } = useContext(IsLoading);
+
+  const handleLoading = () => {
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("load", handleLoading);
+
+    return () => window.removeEventListener("load", handleLoading);
+  }, []);
+
   return (
     <div>
       <Head>
