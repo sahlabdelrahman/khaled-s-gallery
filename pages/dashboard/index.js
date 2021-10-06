@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import { db } from "../../server/firebase";
 
 import ManinLayout from "../../layouts/mainLayout";
-// import Grid from "../../components/dashboard/home/grid";
-// import AddPhoto from "../../components/dashboard/home/add-photo";
+import Grid from "../../components/dashboard/home/grid";
+import AddPhoto from "../../components/dashboard/home/add-photo";
 
 function Dashboard({ images }) {
   // const [realtimeImages, setRealtimeImages] = useState([]);
@@ -22,8 +22,8 @@ function Dashboard({ images }) {
       </Head>
       <ManinLayout dashboard={true}>
         <main className="mt-32">
-          {/* <AddPhoto /> */}
-          {/* <Grid images={images} /> */}
+          <AddPhoto />
+          <Grid images={images} />
         </main>
       </ManinLayout>
     </div>

@@ -7,7 +7,7 @@ import ManinLayout from "../../../layouts/mainLayout";
 
 import Grid from "../../../components/frontend/youtube/grid";
 
-import AddVideo from "../../../components/dashboard/videos/AddVideo";
+import AddVideo from "../../../components/dashboard/videos/addVideo";
 
 const Vidoes = () => {
   const { setIsLoading } = useContext(IsLoading);
@@ -35,7 +35,7 @@ const Vidoes = () => {
       </Head>
       <main className="mt-32">
         <ManinLayout>
-          <AddVideo />
+          {/* <AddVideo /> */}
           <Grid dashboard={true} />
         </ManinLayout>
       </main>

@@ -3,13 +3,15 @@ import FirebaseContext from "../../../context/firebase";
 
 import GridItem from "./grid-item";
 
+// import { db } from "../../../server/firebase";
+
 export default function Grid({ dashboard }) {
   const { db } = useContext(FirebaseContext);
 
   const [videos, setVideos] = useState([]);
 
-  useEffect(() => {
-    const unmount = db
+  useEffect(async () => {
+    const unmount = await db
       .collection("videos")
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
@@ -24,43 +26,43 @@ export default function Grid({ dashboard }) {
 
     return unmount;
   }, []);
-  const [items, setItems] = useState([
-    {
-      id: "1",
-      title: "Video Example Name",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-      src: "https://www.youtube.com/embed/ciG2OOJBQm8",
-      openCard: false,
-    },
-    {
-      id: "2",
-      title: "Video Example Name",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  // const [items, setItems] = useState([
+  //   {
+  //     id: "1",
+  //     title: "Video Example Name",
+  //     description:
+  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  //     src: "https://www.youtube.com/embed/ciG2OOJBQm8",
+  //     openCard: false,
+  //   },
+  //   {
+  //     id: "2",
+  //     title: "Video Example Name",
+  //     description:
+  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 
-      src: "https://www.youtube.com/embed/ciG2OOJBQm8",
-      openCard: false,
-    },
-    {
-      id: "3",
-      title: "Video Example Name",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  //     src: "https://www.youtube.com/embed/ciG2OOJBQm8",
+  //     openCard: false,
+  //   },
+  //   {
+  //     id: "3",
+  //     title: "Video Example Name",
+  //     description:
+  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 
-      src: "https://www.youtube.com/embed/ciG2OOJBQm8",
-      openCard: false,
-    },
-    {
-      id: "4",
-      title: "Video Example Name",
-      description:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  //     src: "https://www.youtube.com/embed/ciG2OOJBQm8",
+  //     openCard: false,
+  //   },
+  //   {
+  //     id: "4",
+  //     title: "Video Example Name",
+  //     description:
+  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
 
-      src: "https://www.youtube.com/embed/ciG2OOJBQm8",
-      openCard: false,
-    },
-  ]);
+  //     src: "https://www.youtube.com/embed/ciG2OOJBQm8",
+  //     openCard: false,
+  //   },
+  // ]);
 
   return (
     <div className="container mx-auto max-w-screen-lg grid grid-cols-1 auto-rows-auto gap-y-20">

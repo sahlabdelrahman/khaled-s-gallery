@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 import NavLink from "../../frontend/header/navLink";
 
@@ -11,8 +12,8 @@ export default function Nav() {
     >
       <>
         <NavLink
-          status={`${router.pathname == "/" ? "active" : ""}`}
-          href="/"
+          status={`${router.pathname == "/dashboard" ? "active" : ""}`}
+          href="/dashboard"
           text="portofolio"
         />
         <NavLink
@@ -21,13 +22,15 @@ export default function Nav() {
           text="projects"
         />
         <NavLink
-          status={`${router.pathname == "/documenting" ? "active" : ""}`}
-          href="/documenting"
+          status={`${
+            router.pathname == "/dashboard/documenting" ? "active" : ""
+          }`}
+          href="/dashboard/documenting"
           text="documenting"
         />
         <NavLink
-          status={`${router.pathname == "/youtube" ? "active" : ""}`}
-          href="/youtube"
+          status={`${router.pathname == "/dashboard/videos" ? "active" : ""}`}
+          href="/dashboard/videos"
           text="youtube"
         />
         <NavLink
